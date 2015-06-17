@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mission Impossible", "Mission Impossible\Mission Impossible.csproj", "{40E82D0A-2FB2-45A0-A46F-FBAA15CCE1BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MI.Terminal", "Libs\MI.Terminal\MI.Terminal.csproj", "{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{40E82D0A-2FB2-45A0-A46F-FBAA15CCE1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40E82D0A-2FB2-45A0-A46F-FBAA15CCE1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40E82D0A-2FB2-45A0-A46F-FBAA15CCE1BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

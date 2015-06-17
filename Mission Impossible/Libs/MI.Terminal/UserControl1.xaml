@@ -6,10 +6,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 	<Grid Name="mainGrid">
-	<RichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-			<FlowDocument  Name="rtbFlowDoc" PageWidth="{Binding ElementName=mainGrid, Path=ActualWidth}" PageHeight="{Binding ElementName=mainGrid, Path=ActualHeight}">
-				
-		</FlowDocument>
-	</RichTextBox>
+		<RichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+			<FlowDocument  x:Name="rtbFlowDoc" PageWidth="{Binding ActualWidth, ElementName=mainGrid}" PageHeight="{Binding ActualHeight, ElementName=mainGrid}"/>
+		</RichTextBox>
 	</Grid>
 </UserControl>

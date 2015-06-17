@@ -93,6 +93,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Libs\MI.Terminal\MI.Terminal.csproj">
+      <Project>{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}</Project>
+      <Name>MI.Terminal</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

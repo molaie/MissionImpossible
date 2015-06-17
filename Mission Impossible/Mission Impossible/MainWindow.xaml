@@ -1,8 +1,11 @@
-﻿<Window x:Class="Mission_Impossible.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Terminal="clr-namespace:MI.Terminal;assembly=MI.Terminal" x:Class="Mission_Impossible.MainWindow"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+	<Grid>
+		<Terminal:UserControl1 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+
+	</Grid>
 </Window>

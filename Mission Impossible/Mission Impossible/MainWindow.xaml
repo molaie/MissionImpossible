@@ -4,6 +4,5 @@
         xmlns:Terminal="clr-namespace:MI.Terminal;assembly=MI.Terminal" x:Class="Mission_Impossible.MainWindow"
         Title="MainWindow" Height="350" Width="525">
 	<Grid>
-		<Terminal:UserControl1 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 	</Grid>
 </Window>

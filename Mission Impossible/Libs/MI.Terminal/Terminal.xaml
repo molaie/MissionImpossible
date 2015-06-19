@@ -1,13 +1,11 @@
-﻿<UserControl x:Class="MI.Terminal.UserControl1"
+﻿<UserControl x:Class="MI.Terminal.Terminal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-	<Grid Name="mainGrid">
-		<RichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-			<FlowDocument  x:Name="rtbFlowDoc" PageWidth="{Binding ActualWidth, ElementName=mainGrid}" PageHeight="{Binding ActualHeight, ElementName=mainGrid}"/>
-		</RichTextBox>
+    <Grid>
+		<RichTextBox Name="rtbTerminal" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontFamily="Consolas" />
 	</Grid>
 </UserControl>

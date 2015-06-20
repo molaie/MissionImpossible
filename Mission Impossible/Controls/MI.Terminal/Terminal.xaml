@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-		<RichTextBox Name="rtbTerminal" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontFamily="Consolas" />
+		<RichTextBox Name="rtbTerminal" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontFamily="Consolas" Opacity="0.5" PreviewKeyDown="rtbTerminal_PreviewKeyDown" />
 	</Grid>
 </UserControl>

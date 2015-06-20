@@ -21,5 +21,11 @@ namespace MI.Terminal {
 		public Terminal() {
 			InitializeComponent();
 		}
+
+		private void rtbTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
+			if (e.Key != Key.Enter) {
+				return;
+			}
+		}
 	}
 }

@@ -79,6 +79,16 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libs\SerialUtilities\SerialUtilities\SerialUtilities.csproj">
+      <Project>{e147289f-b708-46fc-8031-7ba5c8d5599b}</Project>
+      <Name>SerialUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MIUtilities\MIUtilities.csproj">
+      <Project>{7cba1700-66b3-4963-9a70-7d0e6e6ce27f}</Project>
+      <Name>MIUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -102,6 +102,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Controls\MI.Terminal\MI.Terminal.csproj">
+      <Project>{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD}</Project>
+      <Name>MI.Terminal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libs\SerialUtilities\SerialUtilities\SerialUtilities.csproj">
+      <Project>{E147289F-B708-46FC-8031-7BA5C8D5599B}</Project>
+      <Name>SerialUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MI.Controls\MI.Controls.csproj">
+      <Project>{41AB953C-8CDA-4590-8DB5-4F75D3522627}</Project>
+      <Name>MI.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MIUtilities\MIUtilities.csproj">
+      <Project>{7CBA1700-66B3-4963-9A70-7D0E6E6CE27F}</Project>
+      <Name>MIUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

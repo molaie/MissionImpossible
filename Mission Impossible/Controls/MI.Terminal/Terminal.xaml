@@ -8,6 +8,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
 	<Grid>
 		<Controls:RichTextBox x:Name="rtbTerminal" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" FontFamily="Consolas" Opacity="0.5" PreviewKeyDown="rtbTerminal_PreviewKeyDown" KeyUp="rtbTerminal_KeyUp" Background="Black" Foreground="Lime" >
+			<RichTextBox.Resources>
+				<Style TargetType="{x:Type Paragraph}">
+					<Setter Property="Margin" Value="0" />
+				</Style>
+			</RichTextBox.Resources>
 		</Controls:RichTextBox>
 	</Grid>
 </UserControl>

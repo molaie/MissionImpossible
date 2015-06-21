@@ -44,47 +44,79 @@ namespace MI.Terminal {
 		}
 
 		private void rtbTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
+			//if (!isConnected) {
+			//	e.Handled = true;
+			//	return;
+			//}
+			switch (e.Key) {
+				case Key.Up:
+					if (history > 0) {
+						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
+						rtbTerminal.Selection.Text = "";
+						rtbTerminal.AppendText(cmdHistory[--history]);
+					}
+					e.Handled = true;
+					break;
+				case Key.Down:
+					if (history < cmdHistory.Count - 1) {
+						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
+						rtbTerminal.Selection.Text = "";
+						rtbTerminal.AppendText(cmdHistory[++history]);
+					}
+					e.Handled = true;
+					break;
+				case Key.Left:
+				case Key.Back:
+					//if (rtbTerminal.Selection.Start <= inputStartPos)
+					e.Handled = true;
+					break;
+
+				//case Keys.Right:
+				//    break;
+			}
+
+
+
+
+
+
+		}
+
+		private async void rtbTerminal_KeyUp(object sender, KeyEventArgs e) {
 			if (e.Key != Key.Enter) {
 				return;
 			}
-		}
-
-		private void rtbTerminal_KeyUp(object sender, KeyEventArgs e) {
-			if (!isConnected) {
-				e.Handled = true;
-				return;
-			}
-
-			//TextPointer t = new TextPointer(
 
 
-			//rtbTerminal.Selection.Start = new TextRange(rtbTerminal.Document.ContentStart, rtbTerminal.Document.ContentEnd).Text.Length;
-			//switch (e.Key) {
-			//	case Key.Up:
-			//		if (history > 0) {
-			//			rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - inputStartPos);
-			//			rtbTerminal.Selection = "";
-			//			rtbTerminal.AppendText(cmdHistory[--history]);
-			//		}
-			//		e.Handled = true;
-			//		break;
-			//	case Key.Down:
-			//		if (history < cmdHistory.Count - 1) {
-			//			rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - inputStartPos);
-			//			rtbTerminal.Selection = "";
-			//			rtbTerminal.AppendText(cmdHistory[++history]);
-			//		}
-			//		e.Handled = true;
-			//		break;
-			//	case Key.Left:
-			//	case Key.Back:
-			//		if (rtbTerminal.Selection.Start <= inputStartPos)
-			//			e.Handled = true;
-			//		break;
+			
 
-			//	//case Keys.Right:
-			//	//    break;
+			//if (!isConnected) {
+			//	return;
 			//}
+
+			try {
+
+				var cmd = string.Empty;
+				cmd = rtbTerminal.GetText(inputStartPos, rtbTerminal.Text.Length - 2).ToLower();
+				//rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
+				//rtbTerminal.Selection.Text = "";
+				if (cmd.Length > 0 && (cmdHistory.Count == 0 || cmdHistory.Last() != cmd)) {
+					cmdHistory.Add(cmd);
+					history = cmdHistory.Count;
+				}
+				if (cmd == "cls") {
+					ClearLog();
+				} else if (cmd == "reboot") {
+					serialManager.WriteLine("reboot");
+					serialManager.close();
+					await WaitForBoot();
+					Connect();
+				} else {
+					serialManager.WriteLine(cmd);
+				}
+			} catch {
+			}
+			inputStartPos = rtbTerminal.Text.TrimEnd(Environment.NewLine.Split().Cast<char>().ToArray()).Length;
 		}
 
 
@@ -129,6 +161,12 @@ namespace MI.Terminal {
 				isConnected = true;
 				serialManager.WriteLine("?");
 			}
+		}
+
+		public void ClearLog() {
+			rtbTerminal.SelectAll();
+			rtbTerminal.Selection.Text = "";
+			serialManager.WriteLine("");
 		}
 
 

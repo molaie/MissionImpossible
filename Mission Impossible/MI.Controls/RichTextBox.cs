@@ -25,5 +25,24 @@ namespace MI.Controls {
 		}
 
 
+
+		public void Select(int startPos, int EndPos) {
+			TextRange temp = new TextRange(this.Document.ContentStart, this.Document.ContentEnd);
+			TextPointer start = temp.Start.GetPositionAtOffset(startPos);
+			TextPointer end = start.GetPositionAtOffset(EndPos);
+			this.Selection.Select(start, end);
+		}
+
+
+		public string GetText(int startPos, int EndPos) {
+			TextRange temp = new TextRange(this.Document.ContentStart, this.Document.ContentEnd);
+			TextPointer start = temp.Start.GetPositionAtOffset(startPos);
+			TextPointer end = start.GetPositionAtOffset(EndPos);
+			return new TextRange(start, end).Text;
+		}
+
+
+
+
 	}
 }

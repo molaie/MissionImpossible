@@ -43,24 +43,48 @@ namespace MI.Terminal {
 			InitializeComponent();
 		}
 
-		private void rtbTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
+		private async void rtbTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
 			//if (!isConnected) {
 			//	e.Handled = true;
 			//	return;
 			//}
+
+
+
+			//if (!isConnected) {
+			//	return;
+			//}
+
+
+
+
+
+
+
+
+		}
+
+		private async void rtbTerminal_KeyUp(object sender, KeyEventArgs e) {
 			switch (e.Key) {
 				case Key.Up:
 					if (history > 0) {
-						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
-						rtbTerminal.Selection.Text = "";
+						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - 2);
+						//rtbTerminal.Selection.Text = "";
+						// Set the TextPointer to the end of the current document.
+						TextPointer caretPos = rtbTerminal.CaretPosition;
+						caretPos = caretPos.DocumentEnd;
+
+						// Specify the new caret position at the end of the current document.
+						//rtbTerminal.CaretPosition = rtbTerminal.CaretPosition.DocumentEnd;
 						rtbTerminal.AppendText(cmdHistory[--history]);
+
 					}
 					e.Handled = true;
 					break;
 				case Key.Down:
 					if (history < cmdHistory.Count - 1) {
 						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
-						rtbTerminal.Selection.Text = "";
+						//rtbTerminal.Selection.Text = "";
 						rtbTerminal.AppendText(cmdHistory[++history]);
 					}
 					e.Handled = true;
@@ -71,52 +95,37 @@ namespace MI.Terminal {
 					e.Handled = true;
 					break;
 
-				//case Keys.Right:
-				//    break;
+
+
+
+
+				case Key.Enter:
+					try {
+
+						var cmd = string.Empty;
+
+						cmd = rtbTerminal.Text.Substring(inputStartPos, rtbTerminal.Text.Length - inputStartPos - 2).ToLower();
+						//rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
+						//rtbTerminal.Selection.Text = "";
+						if (cmd.Length > 0 && (cmdHistory.Count == 0 || cmdHistory.Last() != cmd)) {
+							cmdHistory.Add(cmd);
+							history = cmdHistory.Count;
+						}
+						if (cmd == "cls") {
+							ClearLog();
+						} else if (cmd == "reboot") {
+							serialManager.WriteLine("reboot");
+							serialManager.close();
+							await WaitForBoot();
+							Connect();
+						} else {
+							serialManager.WriteLine(cmd);
+						}
+					} catch {
+					}
+					inputStartPos = rtbTerminal.Text.Length;
+					break;
 			}
-
-
-
-
-
-
-		}
-
-		private async void rtbTerminal_KeyUp(object sender, KeyEventArgs e) {
-			if (e.Key != Key.Enter) {
-				return;
-			}
-
-
-			
-
-			//if (!isConnected) {
-			//	return;
-			//}
-
-			try {
-
-				var cmd = string.Empty;
-				cmd = rtbTerminal.GetText(inputStartPos, rtbTerminal.Text.Length - 2).ToLower();
-				//rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
-				//rtbTerminal.Selection.Text = "";
-				if (cmd.Length > 0 && (cmdHistory.Count == 0 || cmdHistory.Last() != cmd)) {
-					cmdHistory.Add(cmd);
-					history = cmdHistory.Count;
-				}
-				if (cmd == "cls") {
-					ClearLog();
-				} else if (cmd == "reboot") {
-					serialManager.WriteLine("reboot");
-					serialManager.close();
-					await WaitForBoot();
-					Connect();
-				} else {
-					serialManager.WriteLine(cmd);
-				}
-			} catch {
-			}
-			inputStartPos = rtbTerminal.Text.TrimEnd(Environment.NewLine.Split().Cast<char>().ToArray()).Length;
 		}
 
 

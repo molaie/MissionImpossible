@@ -29,7 +29,7 @@ namespace MI.Controls {
 		public void Select(int startPos, int EndPos) {
 			TextRange temp = new TextRange(this.Document.ContentStart, this.Document.ContentEnd);
 			TextPointer start = temp.Start.GetPositionAtOffset(startPos);
-			TextPointer end = start.GetPositionAtOffset(EndPos);
+			TextPointer end = start.GetPositionAtOffset(EndPos - startPos);
 			this.Selection.Select(start, end);
 		}
 
@@ -37,7 +37,7 @@ namespace MI.Controls {
 		public string GetText(int startPos, int EndPos) {
 			TextRange temp = new TextRange(this.Document.ContentStart, this.Document.ContentEnd);
 			TextPointer start = temp.Start.GetPositionAtOffset(startPos);
-			TextPointer end = start.GetPositionAtOffset(EndPos);
+			TextPointer end = temp.Start.GetPositionAtOffset(EndPos);
 			return new TextRange(start, end).Text;
 		}
 

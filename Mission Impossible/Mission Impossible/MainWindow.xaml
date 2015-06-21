@@ -1,9 +1,11 @@
 ﻿<Controls:MetroWindow 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		x:Class="Mission_Impossible.MainWindow"
 		xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Terminal="clr-namespace:MI.Terminal;assembly=MI.Terminal"
+		x:Class="Mission_Impossible.MainWindow"
         Title="Mission Impossible" Height="350" Width="525">
 	<Grid>
+		<Terminal:Terminal HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 	</Grid>
 </Controls:MetroWindow>

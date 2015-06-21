@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialUtilities", "Libs\Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIUtilities", "MIUtilities\MIUtilities.csproj", "{7CBA1700-66B3-4963-9A70-7D0E6E6CE27F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MI.Controls", "MI.Controls\MI.Controls.csproj", "{41AB953C-8CDA-4590-8DB5-4F75D3522627}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +37,17 @@ Global
 		{7CBA1700-66B3-4963-9A70-7D0E6E6CE27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CBA1700-66B3-4963-9A70-7D0E6E6CE27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CBA1700-66B3-4963-9A70-7D0E6E6CE27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41AB953C-8CDA-4590-8DB5-4F75D3522627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41AB953C-8CDA-4590-8DB5-4F75D3522627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41AB953C-8CDA-4590-8DB5-4F75D3522627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41AB953C-8CDA-4590-8DB5-4F75D3522627}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B6A790FD-F2D2-44D0-9E94-0BD5BFB5ACAD} = {681A1355-4FD3-42D6-BC12-1412F6676D10}
+		{41AB953C-8CDA-4590-8DB5-4F75D3522627} = {681A1355-4FD3-42D6-BC12-1412F6676D10}
 		{E147289F-B708-46FC-8031-7BA5C8D5599B} = {1667BECA-A34D-4279-BB5A-7DEA7081CD50}
 		{7CBA1700-66B3-4963-9A70-7D0E6E6CE27F} = {1667BECA-A34D-4279-BB5A-7DEA7081CD50}
 	EndGlobalSection

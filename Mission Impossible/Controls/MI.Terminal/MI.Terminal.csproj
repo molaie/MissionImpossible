@@ -84,6 +84,10 @@
       <Project>{e147289f-b708-46fc-8031-7ba5c8d5599b}</Project>
       <Name>SerialUtilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MI.Controls\MI.Controls.csproj">
+      <Project>{41AB953C-8CDA-4590-8DB5-4F75D3522627}</Project>
+      <Name>MI.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MIUtilities\MIUtilities.csproj">
       <Project>{7cba1700-66b3-4963-9a70-7d0e6e6ce27f}</Project>
       <Name>MIUtilities</Name>

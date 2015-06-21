@@ -55,35 +55,36 @@ namespace MI.Terminal {
 				return;
 			}
 
+			//TextPointer t = new TextPointer(
 
-			rtbTerminal.Selection.Start = new TextRange(rtbTerminal.Document.ContentStart, rtbTerminal.Document.ContentEnd).Text.Length;
 
-			switch (e.Key) {
-				case Key.Up:
-					if (history > 0) {
-						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - inputStartPos);
-						rtbTerminal.Selection = "";
-						rtbTerminal.AppendText(cmdHistory[--history]);
-					}
-					e.Handled = true;
-					break;
-				case Key.Down:
-					if (history < cmdHistory.Count - 1) {
-						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - inputStartPos);
-						rtbTerminal.Selection = "";
-						rtbTerminal.AppendText(cmdHistory[++history]);
-					}
-					e.Handled = true;
-					break;
-				case Key.Left:
-				case Key.Back:
-					if (rtbTerminal.Selection.Start <= inputStartPos)
-						e.Handled = true;
-					break;
+			//rtbTerminal.Selection.Start = new TextRange(rtbTerminal.Document.ContentStart, rtbTerminal.Document.ContentEnd).Text.Length;
+			//switch (e.Key) {
+			//	case Key.Up:
+			//		if (history > 0) {
+			//			rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - inputStartPos);
+			//			rtbTerminal.Selection = "";
+			//			rtbTerminal.AppendText(cmdHistory[--history]);
+			//		}
+			//		e.Handled = true;
+			//		break;
+			//	case Key.Down:
+			//		if (history < cmdHistory.Count - 1) {
+			//			rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - inputStartPos);
+			//			rtbTerminal.Selection = "";
+			//			rtbTerminal.AppendText(cmdHistory[++history]);
+			//		}
+			//		e.Handled = true;
+			//		break;
+			//	case Key.Left:
+			//	case Key.Back:
+			//		if (rtbTerminal.Selection.Start <= inputStartPos)
+			//			e.Handled = true;
+			//		break;
 
-				//case Keys.Right:
-				//    break;
-			}
+			//	//case Keys.Right:
+			//	//    break;
+			//}
 		}
 
 
@@ -103,13 +104,15 @@ namespace MI.Terminal {
 			}
 
 
-			rtbTerminal.InvokeIfRequired(c => {
-				rtbTerminal.AppendText(log);
+			//rtbTerminal.InvokeIfRequired(c => {
+			//	rtbTerminal.AppendText(log);
 
-				rtbTerminal.Selection.Start = new TextRange(rtbTerminal.Document.ContentStart, rtbTerminal.Document.ContentEnd).Text.Length;
-				inputStartPos = rtbTerminal.Selection.Start;
-				rtbTerminal.Focus();
-			}, null);
+			//	rtbTerminal.Selection.Start = new TextRange(rtbTerminal.Document.ContentStart, rtbTerminal.Document.ContentEnd).Text.Length;
+			//	inputStartPos = rtbTerminal.Selection.Start;
+			//	rtbTerminal.Focus();
+			//}, null);
+
+
 		}
 
 

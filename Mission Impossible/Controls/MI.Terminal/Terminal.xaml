@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 	<Grid>
-		
-		<TextBox Name="txtTerminal" AcceptsReturn="True" AcceptsTab="True" FontFamily="Consolas" Background="Black" Foreground="White" CaretBrush="Lime" KeyDown="txtTerminal_KeyDown" PreviewKeyDown="txtTerminal_PreviewKeyDown_1" PreviewTextInput="txtTerminal_PreviewTextInput">
+
+		<TextBox Name="txtTerminal" AcceptsReturn="True" ContextMenu="{x:Null}" AcceptsTab="True" FontFamily="Consolas" Background="Black" Foreground="White" CaretBrush="Lime" PreviewKeyDown="txtTerminal_PreviewKeyDown" PreviewTextInput="txtTerminal_PreviewTextInput">
 			<TextBox.OpacityMask>
 				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 					<GradientStop Color="Black" Offset="0"/>

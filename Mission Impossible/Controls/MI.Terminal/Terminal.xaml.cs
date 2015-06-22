@@ -36,39 +36,14 @@ namespace MI.Terminal {
 		//Which comport?
 		public string SelectedComPort { get; set; }
 		private bool isConnected;
+		//command that is going to send to terminal
+		string cmd = string.Empty;
 
 		private SerialPortManager serialManager = new SerialPortManager();
 
 		public Terminal() {
 			InitializeComponent();
 		}
-
-		private async void txtTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
-			//if (!isConnected) {
-			//	e.Handled = true;
-			//	return;
-			//}
-
-
-
-			//if (!isConnected) {
-			//	return;
-			//}
-
-
-
-
-
-
-
-
-		}
-
-		private async void txtTerminal_KeyUp(object sender, KeyEventArgs e) {
-			
-		}
-
-
 
 		private void InsertLog(string log) {
 			if (string.IsNullOrWhiteSpace(log)) {
@@ -130,50 +105,40 @@ namespace MI.Terminal {
 		}
 
 
-		string cmd = string.Empty;
-
-		private async void txtTerminal_KeyDown(object sender, KeyEventArgs e) {
-			
-		}
 
 
-		private async void txtTerminal_PreviewKeyDown_1(object sender, KeyEventArgs e) {
+		private async void txtTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
 			switch (e.Key) {
 				case Key.Up:
 					if (history > 0) {
-						txtTerminal.Select(inputStartPos, txtTerminal.Text.Length - 2);
-						//txtTerminal.Selection.Text = "";
-						// Set the TextPointer to the end of the current document.
-						//TextPointer caretPos = txtTerminal.CaretPosition;
-						//caretPos = caretPos.DocumentEnd;
-
-						// Specify the new caret position at the end of the current document.
-						//txtTerminal.CaretPosition = txtTerminal.CaretPosition.DocumentEnd;
+						txtTerminal.Select(inputStartPos, txtTerminal.Text.Length - inputStartPos);
+						txtTerminal.SelectedText = "";
 						txtTerminal.AppendText(cmdHistory[--history]);
-
 					}
 					e.Handled = true;
 					break;
 				case Key.Down:
 					if (history < cmdHistory.Count - 1) {
-						txtTerminal.Select(inputStartPos, txtTerminal.Text.Length);
-						//txtTerminal.Selection.Text = "";
+						txtTerminal.Select(inputStartPos, txtTerminal.Text.Length - inputStartPos);
+						txtTerminal.SelectedText = "";
 						txtTerminal.AppendText(cmdHistory[++history]);
 					}
 					e.Handled = true;
 					break;
 				case Key.Left:
+					if (txtTerminal.SelectionStart <= inputStartPos)
+						e.Handled = true;
+					break;
 				case Key.Back:
-					//if (txtTerminal.Selection.Start <= inputStartPos)
-					e.Handled = true;
+					if (txtTerminal.SelectionStart <= inputStartPos)
+						e.Handled = true;
 					break;
 
 
-
-
-
+				//Sending command to terminal and get results back
 				case Key.Enter:
 					try {
+						cmd = txtTerminal.Text.Substring(inputStartPos, txtTerminal.Text.Length - inputStartPos).ToLower();
 						if (cmd.Length > 0 && (cmdHistory.Count == 0 || cmdHistory.Last() != cmd)) {
 							cmdHistory.Add(cmd);
 							history = cmdHistory.Count;
@@ -190,14 +155,15 @@ namespace MI.Terminal {
 						}
 					} catch {
 					}
-					inputStartPos = txtTerminal.Text.Length;
+					//2 counts for \r\n respectively, we are in an enter
+					inputStartPos = txtTerminal.Text.Length + 2;
 					cmd = string.Empty;
 					break;
 			}
 		}
 
 		private void txtTerminal_PreviewTextInput(object sender, TextCompositionEventArgs e) {
-			cmd += e.Text;
+			//cmd += e.Text;
 		}
 
 

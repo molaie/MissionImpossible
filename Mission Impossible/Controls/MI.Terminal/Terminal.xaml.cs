@@ -43,7 +43,7 @@ namespace MI.Terminal {
 			InitializeComponent();
 		}
 
-		private async void rtbTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
+		private async void txtTerminal_PreviewKeyDown(object sender, KeyEventArgs e) {
 			//if (!isConnected) {
 			//	e.Handled = true;
 			//	return;
@@ -64,34 +64,107 @@ namespace MI.Terminal {
 
 		}
 
-		private async void rtbTerminal_KeyUp(object sender, KeyEventArgs e) {
+		private async void txtTerminal_KeyUp(object sender, KeyEventArgs e) {
+			
+		}
+
+
+
+		private void InsertLog(string log) {
+			if (string.IsNullOrWhiteSpace(log)) {
+				log = "NOP" + Environment.NewLine;
+			}
+			log = log.TrimEnd('\r');
+			log = log.Replace("\0", "");
+			log = log.Replace((char)0x1b + "[K", "");
+
+
+
+			if (txtTerminal.Dispatcher.CheckAccess()) {
+
+			}
+
+
+			//txtTerminal.InvokeIfRequired(c => {
+			//	txtTerminal.AppendText(log);
+
+			//	txtTerminal.Selection.Start = new TextRange(txtTerminal.Document.ContentStart, txtTerminal.Document.ContentEnd).Text.Length;
+			//	inputStartPos = txtTerminal.Selection.Start;
+			//	txtTerminal.Focus();
+			//}, null);
+
+
+		}
+
+
+		public void Connect() {
+			if (string.IsNullOrWhiteSpace(SelectedComPort)) {
+				InsertLog("There is no comport to connect");
+			}
+			//txtTerminal.Select
+
+			var connectionResult = serialManager.InitSerial(SelectedComPort, handler: sePort_DataReceived);
+			InsertLog(connectionResult);
+			if ("Connected" == connectionResult) {
+				//we need at least one enter to see Nuttx
+				serialManager.WriteLine("");
+				isConnected = true;
+				serialManager.WriteLine("?");
+			}
+		}
+
+		public void ClearLog() {
+			txtTerminal.Text = "";
+			serialManager.WriteLine("");
+		}
+
+
+		private void sePort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
+			string result = serialManager.ReadExisting();
+			InsertLog(result);
+		}
+
+
+		private async Task WaitForBoot() {
+			await Task.Delay(12000);
+		}
+
+
+		string cmd = string.Empty;
+
+		private async void txtTerminal_KeyDown(object sender, KeyEventArgs e) {
+			
+		}
+
+
+		private async void txtTerminal_PreviewKeyDown_1(object sender, KeyEventArgs e) {
 			switch (e.Key) {
 				case Key.Up:
 					if (history > 0) {
-						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length - 2);
-						//rtbTerminal.Selection.Text = "";
+						txtTerminal.Select(inputStartPos, txtTerminal.Text.Length - 2);
+						//txtTerminal.Selection.Text = "";
 						// Set the TextPointer to the end of the current document.
-						TextPointer caretPos = rtbTerminal.CaretPosition;
-						caretPos = caretPos.DocumentEnd;
+						//TextPointer caretPos = txtTerminal.CaretPosition;
+						//caretPos = caretPos.DocumentEnd;
 
 						// Specify the new caret position at the end of the current document.
-						//rtbTerminal.CaretPosition = rtbTerminal.CaretPosition.DocumentEnd;
-						rtbTerminal.AppendText(cmdHistory[--history]);
+						//txtTerminal.CaretPosition = txtTerminal.CaretPosition.DocumentEnd;
+						txtTerminal.AppendText(cmdHistory[--history]);
 
 					}
 					e.Handled = true;
 					break;
 				case Key.Down:
 					if (history < cmdHistory.Count - 1) {
-						rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
-						//rtbTerminal.Selection.Text = "";
-						rtbTerminal.AppendText(cmdHistory[++history]);
+						txtTerminal.Select(inputStartPos, txtTerminal.Text.Length);
+						//txtTerminal.Selection.Text = "";
+						txtTerminal.AppendText(cmdHistory[++history]);
 					}
 					e.Handled = true;
 					break;
 				case Key.Left:
 				case Key.Back:
-					//if (rtbTerminal.Selection.Start <= inputStartPos)
+					//if (txtTerminal.Selection.Start <= inputStartPos)
 					e.Handled = true;
 					break;
 
@@ -101,12 +174,6 @@ namespace MI.Terminal {
 
 				case Key.Enter:
 					try {
-
-						var cmd = string.Empty;
-
-						cmd = rtbTerminal.Text.Substring(inputStartPos, rtbTerminal.Text.Length - inputStartPos - 2).ToLower();
-						//rtbTerminal.Select(inputStartPos, rtbTerminal.Text.Length);
-						//rtbTerminal.Selection.Text = "";
 						if (cmd.Length > 0 && (cmdHistory.Count == 0 || cmdHistory.Last() != cmd)) {
 							cmdHistory.Add(cmd);
 							history = cmdHistory.Count;
@@ -123,70 +190,14 @@ namespace MI.Terminal {
 						}
 					} catch {
 					}
-					inputStartPos = rtbTerminal.Text.Length;
+					inputStartPos = txtTerminal.Text.Length;
+					cmd = string.Empty;
 					break;
 			}
 		}
 
-
-
-		private void InsertLog(string log) {
-			if (string.IsNullOrWhiteSpace(log)) {
-				log = "NOP" + Environment.NewLine;
-			}
-			log = log.TrimEnd('\r');
-			log = log.Replace("\0", "");
-			log = log.Replace((char)0x1b + "[K", "");
-
-
-
-			if (rtbTerminal.Dispatcher.CheckAccess()) {
-
-			}
-
-
-			//rtbTerminal.InvokeIfRequired(c => {
-			//	rtbTerminal.AppendText(log);
-
-			//	rtbTerminal.Selection.Start = new TextRange(rtbTerminal.Document.ContentStart, rtbTerminal.Document.ContentEnd).Text.Length;
-			//	inputStartPos = rtbTerminal.Selection.Start;
-			//	rtbTerminal.Focus();
-			//}, null);
-
-
-		}
-
-
-		public void Connect() {
-			if (string.IsNullOrWhiteSpace(SelectedComPort)) {
-				InsertLog("There is no comport to connect");
-			}
-
-			var connectionResult = serialManager.InitSerial(SelectedComPort, handler: sePort_DataReceived);
-			InsertLog(connectionResult);
-			if ("Connected" == connectionResult) {
-				//we need at least one enter to see Nuttx
-				serialManager.WriteLine("");
-				isConnected = true;
-				serialManager.WriteLine("?");
-			}
-		}
-
-		public void ClearLog() {
-			rtbTerminal.SelectAll();
-			rtbTerminal.Selection.Text = "";
-			serialManager.WriteLine("");
-		}
-
-
-		private void sePort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
-			string result = serialManager.ReadExisting();
-			InsertLog(result);
-		}
-
-
-		private async Task WaitForBoot() {
-			await Task.Delay(12000);
+		private void txtTerminal_PreviewTextInput(object sender, TextCompositionEventArgs e) {
+			cmd += e.Text;
 		}
 
 

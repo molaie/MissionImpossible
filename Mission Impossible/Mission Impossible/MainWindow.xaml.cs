@@ -1,6 +1,8 @@
 ﻿using MahApps.Metro.Controls;
+using MI.Terminal;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,22 @@ namespace Mission_Impossible {
 	public partial class MainWindow : MetroWindow {
 		public MainWindow() {
 			InitializeComponent();
+			this.DataContext = views;
+			loadTerminal();
+		}
+
+		private ObservableCollection<FrameworkElement> views = new ObservableCollection<FrameworkElement>();
+
+		private void loadTerminal() {
+			UserControl1 u = new UserControl1();
+			views.Add(u);
+		}
+
+		private void MenuItem_Click(object sender, RoutedEventArgs e) {
+			Terminal t = new Terminal();
+			t.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+			t.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+			views.Add(t);
 		}
 	}
 }

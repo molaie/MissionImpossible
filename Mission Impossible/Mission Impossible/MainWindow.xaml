@@ -3,9 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:Terminal="clr-namespace:MI.Terminal;assembly=MI.Terminal"
+		xmlns:Controls1="clr-namespace:MI.Controls;assembly=MI.Controls"
 		x:Class="Mission_Impossible.MainWindow"
         Title="Mission Impossible" Height="350" Width="525">
-	<Grid>
-		<Terminal:Terminal HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-	</Grid>
+	<DockPanel >
+
+		<Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="30" VerticalAlignment="Top">
+			<MenuItem Header="Mission" Click="MenuItem_Click">
+				<Separator Margin="0"/>
+				<MenuItem Header="_Exit"/>
+
+			</MenuItem>
+		</Menu>
+		<ItemsControl ItemsSource="{Binding}"  >
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+	</DockPanel>
 </Controls:MetroWindow>
